@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xin.shaozeming.es.dao.NewsArticleDao">
+  <resultMap id="BaseResultMap" type="xin.shaozeming.es.po.NewsArticlePO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="news_title" jdbcType="VARCHAR" property="newsTitle" />
+    <result column="news_resource" jdbcType="VARCHAR" property="newsResource" />
+    <result column="news_cate" jdbcType="VARCHAR" property="newsCate" />
+    <result column="format_type" jdbcType="TINYINT" property="formatType" />
+    <result column="news_url" jdbcType="VARCHAR" property="newsUrl" />
+    <result column="crawler_id" jdbcType="VARCHAR" property="crawlerId" />
+    <result column="crawler_resource" jdbcType="VARCHAR" property="crawlerResource" />
+    <result column="title_pic" jdbcType="VARCHAR" property="titlePic" />
+    <result column="news_date" jdbcType="VARCHAR" property="newsDate" />
+    <result column="read_num" jdbcType="INTEGER" property="readNum" />
+    <result column="pub_mark" jdbcType="TINYINT" property="pubMark" />
+    <result column="gtm_modified" jdbcType="TIMESTAMP" property="gtmModified" />
+    <result column="gtm_created" jdbcType="TIMESTAMP" property="gtmCreated" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, news_title, news_resource, news_cate, format_type, news_url, crawler_id, crawler_resource, 
+    title_pic, news_date, read_num, pub_mark, gtm_modified, gtm_created
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from news_article
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from news_article
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="xin.shaozeming.es.po.NewsArticlePO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into news_article (news_title, news_resource, news_cate, 
+      format_type, news_url, crawler_id, 
+      crawler_resource, title_pic, news_date, 
+      read_num, pub_mark, gtm_modified, 
+      gtm_created)
+    values (#{newsTitle,jdbcType=VARCHAR}, #{newsResource,jdbcType=VARCHAR}, #{newsCate,jdbcType=VARCHAR}, 
+      #{formatType,jdbcType=TINYINT}, #{newsUrl,jdbcType=VARCHAR}, #{crawlerId,jdbcType=VARCHAR}, 
+      #{crawlerResource,jdbcType=VARCHAR}, #{titlePic,jdbcType=VARCHAR}, #{newsDate,jdbcType=VARCHAR}, 
+      #{readNum,jdbcType=INTEGER}, #{pubMark,jdbcType=TINYINT}, #{gtmModified,jdbcType=TIMESTAMP}, 
+      #{gtmCreated,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="xin.shaozeming.es.po.NewsArticlePO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into news_article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="newsTitle != null">
+        news_title,
+      </if>
+      <if test="newsResource != null">
+        news_resource,
+      </if>
+      <if test="newsCate != null">
+        news_cate,
+      </if>
+      <if test="formatType != null">
+        format_type,
+      </if>
+      <if test="newsUrl != null">
+        news_url,
+      </if>
+      <if test="crawlerId != null">
+        crawler_id,
+      </if>
+      <if test="crawlerResource != null">
+        crawler_resource,
+      </if>
+      <if test="titlePic != null">
+        title_pic,
+      </if>
+      <if test="newsDate != null">
+        news_date,
+      </if>
+      <if test="readNum != null">
+        read_num,
+      </if>
+      <if test="pubMark != null">
+        pub_mark,
+      </if>
+      <if test="gtmModified != null">
+        gtm_modified,
+      </if>
+      <if test="gtmCreated != null">
+        gtm_created,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="newsTitle != null">
+        #{newsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="newsResource != null">
+        #{newsResource,jdbcType=VARCHAR},
+      </if>
+      <if test="newsCate != null">
+        #{newsCate,jdbcType=VARCHAR},
+      </if>
+      <if test="formatType != null">
+        #{formatType,jdbcType=TINYINT},
+      </if>
+      <if test="newsUrl != null">
+        #{newsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="crawlerId != null">
+        #{crawlerId,jdbcType=VARCHAR},
+      </if>
+      <if test="crawlerResource != null">
+        #{crawlerResource,jdbcType=VARCHAR},
+      </if>
+      <if test="titlePic != null">
+        #{titlePic,jdbcType=VARCHAR},
+      </if>
+      <if test="newsDate != null">
+        #{newsDate,jdbcType=VARCHAR},
+      </if>
+      <if test="readNum != null">
+        #{readNum,jdbcType=INTEGER},
+      </if>
+      <if test="pubMark != null">
+        #{pubMark,jdbcType=TINYINT},
+      </if>
+      <if test="gtmModified != null">
+        #{gtmModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gtmCreated != null">
+        #{gtmCreated,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xin.shaozeming.es.po.NewsArticlePO">
+    update news_article
+    <set>
+      <if test="newsTitle != null">
+        news_title = #{newsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="newsResource != null">
+        news_resource = #{newsResource,jdbcType=VARCHAR},
+      </if>
+      <if test="newsCate != null">
+        news_cate = #{newsCate,jdbcType=VARCHAR},
+      </if>
+      <if test="formatType != null">
+        format_type = #{formatType,jdbcType=TINYINT},
+      </if>
+      <if test="newsUrl != null">
+        news_url = #{newsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="crawlerId != null">
+        crawler_id = #{crawlerId,jdbcType=VARCHAR},
+      </if>
+      <if test="crawlerResource != null">
+        crawler_resource = #{crawlerResource,jdbcType=VARCHAR},
+      </if>
+      <if test="titlePic != null">
+        title_pic = #{titlePic,jdbcType=VARCHAR},
+      </if>
+      <if test="newsDate != null">
+        news_date = #{newsDate,jdbcType=VARCHAR},
+      </if>
+      <if test="readNum != null">
+        read_num = #{readNum,jdbcType=INTEGER},
+      </if>
+      <if test="pubMark != null">
+        pub_mark = #{pubMark,jdbcType=TINYINT},
+      </if>
+      <if test="gtmModified != null">
+        gtm_modified = #{gtmModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gtmCreated != null">
+        gtm_created = #{gtmCreated,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xin.shaozeming.es.po.NewsArticlePO">
+    update news_article
+    set news_title = #{newsTitle,jdbcType=VARCHAR},
+      news_resource = #{newsResource,jdbcType=VARCHAR},
+      news_cate = #{newsCate,jdbcType=VARCHAR},
+      format_type = #{formatType,jdbcType=TINYINT},
+      news_url = #{newsUrl,jdbcType=VARCHAR},
+      crawler_id = #{crawlerId,jdbcType=VARCHAR},
+      crawler_resource = #{crawlerResource,jdbcType=VARCHAR},
+      title_pic = #{titlePic,jdbcType=VARCHAR},
+      news_date = #{newsDate,jdbcType=VARCHAR},
+      read_num = #{readNum,jdbcType=INTEGER},
+      pub_mark = #{pubMark,jdbcType=TINYINT},
+      gtm_modified = #{gtmModified,jdbcType=TIMESTAMP},
+      gtm_created = #{gtmCreated,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from news_article
+    limit 30
+  </select>
+</mapper>

@@ -1,0 +1,39 @@
+server:
+  port: 10000
+#数据库配置
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/news?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 1
+      min-idle: 10
+      max-active: 100
+      max-wait: 5000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1
+      test-while-idle: true
+      time-between-eviction-runs-millis: 60000
+#elasticsearch
+  data:
+    elasticsearch:
+      repositories:
+        enabled: true
+      cluster-nodes: 39.104.108.236:11001
+      cluster-name: elas_cluster
+
+#mybatis
+mybatis:
+  config-location: classpath:/mybatis/mybatis-config.xml
+  mapper-locations: classpath:/mybatis/mapper/*.xml
+
+#pagehelper
+pagehelper:
+    helperDialect: mysql
+    reasonable: false
+    params: count=countSql
+
+
